@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:async_motor/home.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -12,6 +13,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  void initState() {
+    Future.delayed(const Duration(seconds: 2), () {
+      runApp(const MaterialApp(home: Home()));
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,12 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
             width: 600,
             child: Lottie.asset("assets/motor.json"),
           ),
-          // const Text('Async Moteur',
-          //     style: TextStyle(
-          //         fontFamily: 'Amarante',
-          //         fontSize: 40,
-          //         color: Color(0xff827ddc),
-          //         fontWeight: FontWeight.bold)),
+
           DefaultTextStyle(
             style: const TextStyle(
                 fontFamily: 'Amarante',

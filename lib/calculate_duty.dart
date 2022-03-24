@@ -19,11 +19,12 @@ String duty(int speed, int vitesse, int frequence, int tension) {
   var Desired_tension = tension * coif;
   var Desired_frequence = frequence * coif;
 
-  List<int> List_PDC_1 = [];
+  List<String> List_PDC_1 = [];
   List<int> List_PDC_2 = [];
   List<int> List_PDC_3 = [];
 
   String pdc;
+  String transPdc = "";
 
   double V_as = 0;
   double V_bs = 0;
@@ -43,17 +44,16 @@ String duty(int speed, int vitesse, int frequence, int tension) {
   int frequence_PWM = 16000;
   double degre = 0;
   double step = (360 * Desired_frequence) / frequence_PWM;
-  var stopwatch = Stopwatch()..start();
-  stopwatch.isRunning;
+
   for (degre = 0; degre < 360; degre = degre + step) {
     counter++;
 
     double rad_paas = degre * (math.pi / 180);
     double sintheta = math.sin(rad_paas);
-    double costheta = math.cos(rad_paas);
+    //double costheta = math.cos(rad_paas);
 
     var vAlpha = Desired_tension * sintheta;
-    var vBeta = Desired_tension * costheta;
+    // var vBeta = Desired_tension * costheta;
 
     V_as = vAlpha;
     // V_bs = (-vAlpha / 2) + vBeta * (math.sqrt(3) / 2);
@@ -67,20 +67,27 @@ String duty(int speed, int vitesse, int frequence, int tension) {
     // Pdc_2_To_num = (Pdc_2 * 1024).round();
     // Pdc_3_To_num = (Pdc_3 * 1024).round();
 
-    List_PDC_1.add(Pdc_1_To_num);
-    // List_PDC_2.add(Pdc_2_To_num);
-    // List_PDC_3.add(Pdc_3_To_num);
+    if (Pdc_1_To_num < 10) {
+      transPdc = "000" + Pdc_1_To_num.toString();
+    }
+    if (Pdc_1_To_num >= 10 && Pdc_1_To_num < 100) {
+      transPdc = "00" + Pdc_1_To_num.toString();
+    }
+    if (Pdc_1_To_num >= 100 && Pdc_1_To_num < 1000) {
+      transPdc = "0" + Pdc_1_To_num.toString();
+    }
+    if (Pdc_1_To_num >= 1000) {
+      transPdc = Pdc_1_To_num.toString();
+    }
 
+    List_PDC_1.add(transPdc);
   }
 
-  pdc = List_PDC_1.join(',');
-
-  print('commande num : ' + counter.toString());
-  stopwatch.stop();
-  print(' time of cal : ${stopwatch.elapsedMicroseconds}');
-  print('frequnce : ' + Desired_frequence.toString());
-  print(' tension : ' + Desired_tension.toString());
+  pdc = List_PDC_1.join('');
 
   printLongString('duty : ' + pdc);
+
   return pdc;
 }
+
+drawGraph() {}

@@ -7,6 +7,7 @@ import 'package:async_motor/home.dart';
 import 'package:async_motor/model/commande.dart';
 //import 'package:async_motor/model/config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:draw_graph/draw_graph.dart';
 import 'package:draw_graph/models/feature.dart';
@@ -48,6 +49,59 @@ checkCmd(String myValue) {
   commande = Hive.box('commande').containsKey(myValue);
 
   return commande;
+}
+
+getTension_100() {
+  String tension_100 = commandMotor.tensionMax.toString();
+  return tension_100;
+}
+
+getTension_50() {
+  String tension_50 =
+      double.parse(((commandMotor.tensionMax) * 0.5).toStringAsFixed(2))
+          .toString();
+  return tension_50;
+}
+
+getMinTension_100() {
+  String minTension_100 =
+      double.parse(((commandMotor.tensionMax) * (-1)).toStringAsFixed(2))
+          .toString();
+  return minTension_100;
+}
+
+getMinTension_50() {
+  String minTension_50 =
+      double.parse(((commandMotor.tensionMax) * 0.5 * (-1)).toStringAsFixed(2))
+          .toString();
+  return minTension_50;
+}
+
+getCycle_100() {
+  String cycle_100 = commandMotor.tmpDeCycle.toString();
+  return cycle_100;
+}
+
+getCycle_75() {
+  String cycle_75 =
+      double.parse(((commandMotor.tmpDeCycle) * 0.75).toStringAsFixed(2))
+          .toString();
+  return cycle_75;
+}
+
+getCycle_50() {
+  String cycle_50 =
+      double.parse(((commandMotor.tmpDeCycle) * 0.5).toStringAsFixed(2))
+          .toString();
+
+  return cycle_50;
+}
+
+getCycle_25() {
+  String cycle_25 =
+      double.parse(((commandMotor.tmpDeCycle) * 0.25).toStringAsFixed(2))
+          .toString();
+  return cycle_25;
 }
 
 class Commande extends StatefulWidget {
@@ -113,28 +167,6 @@ class _CommandeState extends State<Commande> {
   Widget build(BuildContext context) {
     getIndex(myValue!);
     getConfig(myValue);
-
-    String cycle_100 = commandMotor.tmpDeCycle.toString();
-    String cycle_50 =
-        double.parse(((commandMotor.tmpDeCycle) * 0.5).toStringAsFixed(2))
-            .toString();
-    String cycle_25 =
-        double.parse(((commandMotor.tmpDeCycle) * 0.25).toStringAsFixed(2))
-            .toString();
-    String cycle_75 =
-        double.parse(((commandMotor.tmpDeCycle) * 0.75).toStringAsFixed(2))
-            .toString();
-
-    String tension_100 = commandMotor.tensionMax.toString();
-    String tension_50 =
-        double.parse(((commandMotor.tensionMax) * 0.5).toStringAsFixed(2))
-            .toString();
-    String minTension_100 =
-        double.parse(((commandMotor.tensionMax) * (-1)).toStringAsFixed(2))
-            .toString();
-    String minTension_50 = double.parse(
-            ((commandMotor.tensionMax) * 0.5 * (-1)).toStringAsFixed(2))
-        .toString();
 
     int dutyGraph;
     //String name = configMotor.name;
@@ -291,7 +323,7 @@ class _CommandeState extends State<Commande> {
                           animatedTexts: [
                             TyperAnimatedText(
                               myValue!,
-                              speed: const Duration(milliseconds: 80),
+                              speed: const Duration(milliseconds: 120),
                             ),
                           ]),
                     ),
@@ -314,7 +346,7 @@ class _CommandeState extends State<Commande> {
                                 child: Text(
                                   'Configuration : ',
                                   style: TextStyle(
-                                      fontSize: 17,
+                                      fontSize: 13,
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -324,42 +356,41 @@ class _CommandeState extends State<Commande> {
                               children: [
                                 Container(
                                   padding: const EdgeInsets.only(left: 10),
-                                  width: 210,
+                                  width: 170,
                                   child: Text(
                                     'tension : ${tension.toString()} V',
                                     style: const TextStyle(
-                                        fontFamily: 'Comfortaa', fontSize: 15),
+                                        fontFamily: 'Comfortaa', fontSize: 13),
                                   ),
                                 ),
                                 SizedBox(
                                   child: Text(
                                     'fréquence : ${frequence.toString()} Hz ',
                                     style: const TextStyle(
-                                        fontFamily: 'Comfortaa', fontSize: 15),
+                                        fontFamily: 'Comfortaa', fontSize: 13),
                                   ),
                                 ),
                               ],
                             ),
                             const SizedBox(
-                              height: 30,
+                              height: 20,
                             ),
                             Row(
-                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Container(
                                   padding: const EdgeInsets.only(left: 10),
-                                  width: 210,
+                                  width: 170,
                                   child: Text(
-                                    'vitesse : ${vitesse.toString()} Tours/Min ',
+                                    'vitesse : ${vitesse.toString()} Tr/Min ',
                                     style: const TextStyle(
-                                        fontFamily: 'Comfortaa', fontSize: 15),
+                                        fontFamily: 'Comfortaa', fontSize: 13),
                                   ),
                                 ),
                                 SizedBox(
                                   child: Text(
                                     'Nombre de pole : 0${(pole.toInt() * 2).toString()}  ',
                                     style: const TextStyle(
-                                        fontFamily: 'Comfortaa', fontSize: 15),
+                                        fontFamily: 'Comfortaa', fontSize: 13),
                                   ),
                                 ),
                               ],
@@ -372,7 +403,7 @@ class _CommandeState extends State<Commande> {
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 15,
                     ),
                     Container(
                       padding: const EdgeInsets.only(left: 20, right: 20),
@@ -387,7 +418,7 @@ class _CommandeState extends State<Commande> {
                               child: const Text(
                                 'Note : ',
                                 style: TextStyle(
-                                    fontSize: 17,
+                                    fontSize: 13,
                                     fontFamily: 'Montserrat',
                                     fontWeight: FontWeight.bold),
                               ),
@@ -399,8 +430,8 @@ class _CommandeState extends State<Commande> {
                               child: Text(
                                 'Pour assurer un bon fonctionnement de ce moteur il faut respecter la plage de la vitesse conseillé (${minVitesse.round()} - ${maxVitesse.round()}) Tours/Min qui correspondent à (${minFrequence.round()} - ${maxFrequence.round()}) Hz afin d\'eviter le phénomene de défluxage.  ',
                                 style: const TextStyle(
-                                  height: 2.5,
-                                  fontSize: 15,
+                                  height: 2,
+                                  fontSize: 13,
                                   fontFamily: 'Comfortaa',
                                 ),
                               ),
@@ -433,7 +464,7 @@ class _CommandeState extends State<Commande> {
                                           child: const Text(
                                             'Ma commande : ',
                                             style: TextStyle(
-                                                fontSize: 17,
+                                                fontSize: 13,
                                                 fontFamily: 'Montserrat',
                                                 fontWeight: FontWeight.bold),
                                           ),
@@ -445,10 +476,10 @@ class _CommandeState extends State<Commande> {
                                           child: Column(
                                             children: [
                                               Text(
-                                                'Votre vitesse desirée était ${commandMotor.vitesse} Tr/Min ,en sachant que mon cher ami ESP_32 fonctionne avec une fréquence MLI de 16000 Hz donc les valeurs envoyées sont les suivantes : ',
+                                                'Votre vitesse desirée était ${commandMotor.vitesse} Tr/Min , sachant que mon cher ami ESP_32 fonctionne avec une fréquence MLI de 16000 Hz donc les valeurs envoyées sont les suivantes : ',
                                                 style: TextStyle(
-                                                  height: 2.5,
-                                                  fontSize: 15,
+                                                  height: 2,
+                                                  fontSize: 13,
                                                   fontFamily: 'Comfortaa',
                                                 ),
                                               ),
@@ -460,12 +491,12 @@ class _CommandeState extends State<Commande> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                      width: 150,
+                                                      width: 130,
                                                       child: Text(
                                                         'Fréquence : ',
                                                         style: TextStyle(
-                                                            height: 2.5,
-                                                            fontSize: 15,
+                                                            height: 2,
+                                                            fontSize: 13,
                                                             fontFamily:
                                                                 'Comfortaa',
                                                             fontWeight:
@@ -475,8 +506,8 @@ class _CommandeState extends State<Commande> {
                                                   Text(
                                                     '${(commandMotor.frequence).toString()} Hz',
                                                     style: TextStyle(
-                                                      height: 2.5,
-                                                      fontSize: 15,
+                                                      height: 2,
+                                                      fontSize: 13,
                                                       fontFamily: 'Comfortaa',
                                                     ),
                                                   ),
@@ -490,12 +521,12 @@ class _CommandeState extends State<Commande> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                      width: 150,
+                                                      width: 130,
                                                       child: Text(
                                                         'Tension max : ',
                                                         style: TextStyle(
-                                                            height: 2.5,
-                                                            fontSize: 15,
+                                                            height: 2,
+                                                            fontSize: 13,
                                                             fontFamily:
                                                                 'Comfortaa',
                                                             fontWeight:
@@ -505,8 +536,8 @@ class _CommandeState extends State<Commande> {
                                                   Text(
                                                     '${commandMotor.tensionMax} V',
                                                     style: TextStyle(
-                                                      height: 2.5,
-                                                      fontSize: 15,
+                                                      height: 2,
+                                                      fontSize: 13,
                                                       fontFamily: 'Comfortaa',
                                                     ),
                                                   ),
@@ -520,12 +551,12 @@ class _CommandeState extends State<Commande> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                      width: 150,
+                                                      width: 130,
                                                       child: Text(
                                                         'temps de cycle : ',
                                                         style: TextStyle(
-                                                            height: 2.5,
-                                                            fontSize: 15,
+                                                            height: 2,
+                                                            fontSize: 13,
                                                             fontFamily:
                                                                 'Comfortaa',
                                                             fontWeight:
@@ -535,8 +566,8 @@ class _CommandeState extends State<Commande> {
                                                   Text(
                                                     '${commandMotor.tmpDeCycle} ms',
                                                     style: TextStyle(
-                                                      height: 2.5,
-                                                      fontSize: 15,
+                                                      height: 2,
+                                                      fontSize: 13,
                                                       fontFamily: 'Comfortaa',
                                                     ),
                                                   ),
@@ -550,12 +581,12 @@ class _CommandeState extends State<Commande> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                      width: 200,
+                                                      width: 170,
                                                       child: Text(
                                                         'nombre de commande : ',
                                                         style: TextStyle(
-                                                            height: 2.5,
-                                                            fontSize: 15,
+                                                            height: 2,
+                                                            fontSize: 13,
                                                             fontFamily:
                                                                 'Comfortaa',
                                                             fontWeight:
@@ -565,8 +596,8 @@ class _CommandeState extends State<Commande> {
                                                   Text(
                                                     '${commandMotor.nbrDeCommande} Cmd/Cycle',
                                                     style: TextStyle(
-                                                      height: 2.5,
-                                                      fontSize: 15,
+                                                      height: 2,
+                                                      fontSize: 13,
                                                       fontFamily: 'Comfortaa',
                                                     ),
                                                   ),
@@ -591,7 +622,7 @@ class _CommandeState extends State<Commande> {
                                       child: const Text(
                                         'Graph : ',
                                         style: TextStyle(
-                                            fontSize: 17,
+                                            fontSize: 13,
                                             fontFamily: 'Montserrat',
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -606,7 +637,7 @@ class _CommandeState extends State<Commande> {
                                         Text(
                                           'temps : ms  ',
                                           style: TextStyle(
-                                            fontSize: 14,
+                                            fontSize: 13,
                                             fontFamily: 'Montserrat',
                                           ),
                                         ),
@@ -616,7 +647,7 @@ class _CommandeState extends State<Commande> {
                                         Text(
                                           'tension : volts',
                                           style: TextStyle(
-                                            fontSize: 14,
+                                            fontSize: 13,
                                             fontFamily: 'Montserrat',
                                           ),
                                         ),
@@ -629,7 +660,7 @@ class _CommandeState extends State<Commande> {
                                 ),
                                 LineGraph(
                                     features: features,
-                                    size: const Size(400, 250),
+                                    size: const Size(400, 220),
                                     labelX: [
                                       '0',
                                       '',
@@ -637,31 +668,31 @@ class _CommandeState extends State<Commande> {
                                       '',
                                       '',
                                       '',
-                                      cycle_25,
+                                      getCycle_25(),
                                       '',
                                       '',
                                       '',
                                       '',
                                       '',
-                                      cycle_50,
+                                      getCycle_50(),
                                       '',
                                       '',
                                       '',
                                       '',
                                       '',
-                                      cycle_75,
+                                      getCycle_75(),
                                       '',
                                       '',
                                       '',
                                       '',
                                       '',
-                                      cycle_100,
+                                      getCycle_100(),
                                     ],
                                     labelY: [
-                                      minTension_100,
+                                      getMinTension_100(),
                                       '',
                                       '',
-                                      minTension_50,
+                                      getMinTension_50(),
                                       '',
                                       '',
                                       '',
@@ -669,10 +700,10 @@ class _CommandeState extends State<Commande> {
                                       '',
                                       '',
                                       '',
-                                      tension_50,
+                                      getTension_50(),
                                       '',
                                       '',
-                                      tension_100
+                                      getTension_100()
                                     ],
                                     showDescription: true,
                                     graphColor: Colors.black,
@@ -694,7 +725,7 @@ class _CommandeState extends State<Commande> {
                                   child: const Text(
                                     "Ce moteur n'a pas encore reçu une commande ,assurez vous que vous êtes connecter a l'esp32 ,aprés cliquez sur Varier Ma Vitesse pour le commander . ",
                                     style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 13,
                                       height: 2,
                                       fontFamily: 'Comfortaa',
                                     ),
@@ -723,7 +754,7 @@ class _CommandeState extends State<Commande> {
                 ),
                 child: const Text(
                   'Varier Ma vitesse',
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
                 onPressed: () {
                   showDialog(
@@ -731,7 +762,7 @@ class _CommandeState extends State<Commande> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           content: Container(
-                            height: 220,
+                            height: 180,
                             padding: EdgeInsets.all(10),
                             child: Column(
                               children: [
@@ -743,7 +774,7 @@ class _CommandeState extends State<Commande> {
                                   style: TextStyle(fontSize: 13),
                                 ),
                                 const SizedBox(
-                                  height: 30,
+                                  height: 20,
                                 ),
                                 Form(
                                     key: _formKey,
@@ -762,7 +793,7 @@ class _CommandeState extends State<Commande> {
                                             labelText: 'Vitesse en Tours/Min',
                                             labelStyle: const TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 13),
+                                                fontSize: 11),
                                             focusedBorder: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(5.0),
@@ -793,7 +824,7 @@ class _CommandeState extends State<Commande> {
                                           },
                                         ),
                                         const SizedBox(
-                                          height: 30,
+                                          height: 20,
                                         ),
                                         // ignore: prefer_const_constructors
                                         SizedBox(
@@ -855,31 +886,64 @@ class _CommandeState extends State<Commande> {
                                                   addToCmd(myValue!, Cmd);
                                                   _formKey.currentState!
                                                       .reset();
-                                                  cycle_100 =
-                                                      tmpDeCycle.toString();
-                                                  cycle_25 = double.parse(
-                                                          (tmpDeCycle * 0.25)
-                                                              .toStringAsFixed(
-                                                                  1))
-                                                      .toString();
-                                                  cycle_50 = double.parse(
-                                                          (tmpDeCycle * 0.50)
-                                                              .toStringAsFixed(
-                                                                  1))
-                                                      .toString();
-                                                  cycle_75 = double.parse(
-                                                          (tmpDeCycle * 0.75)
-                                                              .toStringAsFixed(
-                                                                  1))
-                                                      .toString();
 
                                                   setState(() {});
+                                                  Navigator.pop(context, false);
+                                                }
+                                                if (status == true) {
+                                                  showToast('Commande envoyée',
+                                                      context: context,
+                                                      animation:
+                                                          StyledToastAnimation
+                                                              .scale,
+                                                      reverseAnimation:
+                                                          StyledToastAnimation
+                                                              .fade,
+                                                      position:
+                                                          StyledToastPosition
+                                                              .bottom,
+                                                      animDuration:
+                                                          Duration(seconds: 1),
+                                                      duration:
+                                                          Duration(seconds: 2),
+                                                      curve: Curves.easeOutExpo,
+                                                      reverseCurve:
+                                                          Curves.linear,
+                                                      backgroundColor:
+                                                          Colors.black87);
+                                                }
+                                                if (status == false) {
+                                                  showToast(
+                                                      'Vous êtes en mode Offline',
+                                                      context: context,
+                                                      animation:
+                                                          StyledToastAnimation
+                                                              .scale,
+                                                      reverseAnimation:
+                                                          StyledToastAnimation
+                                                              .fade,
+                                                      position:
+                                                          StyledToastPosition
+                                                              .bottom,
+                                                      animDuration:
+                                                          Duration(seconds: 1),
+                                                      duration:
+                                                          Duration(seconds: 2),
+                                                      curve: Curves.easeOutExpo,
+                                                      reverseCurve:
+                                                          Curves.linear,
+                                                      backgroundColor:
+                                                          Colors.black);
                                                 }
                                               },
                                               child: const Text(
                                                 'Envoyer',
                                                 style: TextStyle(
-                                                    color: Colors.black),
+                                                    color: Colors.black,
+                                                    fontSize: 13,
+                                                    fontFamily: 'Comfortaa',
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ))
                                       ],
@@ -900,6 +964,16 @@ class _CommandeState extends State<Commande> {
           onPressed: () {
             setState(() {
               channelconnect();
+              showToast('Actualiser',
+                  context: context,
+                  animation: StyledToastAnimation.scale,
+                  reverseAnimation: StyledToastAnimation.fade,
+                  position: StyledToastPosition.center,
+                  animDuration: Duration(seconds: 1),
+                  duration: Duration(seconds: 2),
+                  curve: Curves.easeOutExpo,
+                  reverseCurve: Curves.linear,
+                  backgroundColor: Colors.black87);
             });
           },
         ),

@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   void initState() {
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       runApp(const MaterialApp(home: Home()));
     });
     super.initState();
@@ -37,17 +37,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
           DefaultTextStyle(
             style: const TextStyle(
-                fontFamily: 'Amarante',
+                fontFamily: 'Righteous',
                 fontSize: 40,
                 color: Color(0xff1A374D),
                 fontWeight: FontWeight.bold),
             child: AnimatedTextKit(
-                pause: const Duration(milliseconds: 3000),
+                //pause: const Duration(milliseconds: 3000),
                 totalRepeatCount: 1,
                 animatedTexts: [
                   TypewriterAnimatedText(
                     'Async Motor',
-                    speed: const Duration(milliseconds: 100),
+                    speed: const Duration(milliseconds: 120),
                   ),
                 ]),
           ),

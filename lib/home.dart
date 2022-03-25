@@ -2,6 +2,7 @@ import 'package:async_motor/commande.dart';
 import 'package:async_motor/model/config.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 String? name;
 String? tension;
@@ -63,7 +64,7 @@ class _HomeState extends State<Home> {
           Container(
             child: (Hive.box("config").length == 0)
                 ? (const Center(
-                    heightFactor: 35,
+                    heightFactor: 30,
                     child: Text("Aucune configuration trouvée")))
                 : Expanded(
                     child: ValueListenableBuilder(
@@ -75,115 +76,151 @@ class _HomeState extends State<Home> {
                               final config = Hive.box('config').getAt(index);
                               double pole =
                                   (config.frequence * 60) / config.vitesse;
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          Commande(myValue: config.name),
-                                    ),
-                                  );
-                                },
-                                child: Card(
-                                  color: Colors.blue[50],
-                                  margin: const EdgeInsets.all(10),
-                                  child: SizedBox(
-                                    height: 100,
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                              return Column(
+                                children: [
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              Commande(myValue: config.name),
+                                        ),
+                                      );
+                                    },
+                                    child: Card(
+                                      color: Colors.blue[50],
+                                      margin: const EdgeInsets.only(
+                                          left: 20, right: 20),
+                                      child: SizedBox(
+                                        height: 100,
+                                        child: Column(
                                           children: [
-                                            Container(
-                                              //width: 200,
-                                              padding: const EdgeInsets.only(
-                                                  left: 10),
-                                              child: Text(
-                                                config.name.toString(),
-                                                style: const TextStyle(
-                                                    fontFamily: 'Comfortaa',
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  //width: 200,
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10),
+                                                  child: Text(
+                                                    config.name.toString(),
+                                                    style: const TextStyle(
+                                                        fontFamily: 'Comfortaa',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 13),
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  color: Colors.red[400],
+                                                  padding:
+                                                      const EdgeInsets.all(0),
+                                                  iconSize: 20,
+                                                  icon: const Icon(Icons.clear),
+                                                  onPressed: () {
+                                                    Hive.box('config')
+                                                        .deleteAt(index);
+                                                    Hive.box('commande')
+                                                        .delete(config.name);
+                                                    showToast(
+                                                      'Configuration supprimée',
+                                                      context: context,
+                                                      animation:
+                                                          StyledToastAnimation
+                                                              .scale,
+                                                      reverseAnimation:
+                                                          StyledToastAnimation
+                                                              .fade,
+                                                      position:
+                                                          StyledToastPosition
+                                                              .bottom,
+                                                      animDuration:
+                                                          Duration(seconds: 1),
+                                                      duration:
+                                                          Duration(seconds: 2),
+                                                      curve: Curves.easeOutExpo,
+                                                      reverseCurve:
+                                                          Curves.linear,
+                                                    );
+                                                    setState(() {});
+                                                  },
+                                                ),
+                                              ],
                                             ),
-                                            IconButton(
-                                              color: Colors.red[400],
-                                              padding: const EdgeInsets.all(0),
-                                              iconSize: 20,
-                                              icon: const Icon(Icons.clear),
-                                              onPressed: () {
-                                                Hive.box('config')
-                                                    .deleteAt(index);
-                                                Hive.box('commande')
-                                                    .delete(config.name);
-                                                setState(() {});
-                                              },
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  width: 170,
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10),
+                                                  // width: double.infinity,
+                                                  child: Text(
+                                                    'tension : ${config.tension.toString()} V',
+                                                    style: const TextStyle(
+                                                        fontFamily: 'Comfortaa',
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10),
+                                                  // width: double.infinity,
+                                                  child: Text(
+                                                    'fréquence : ${config.frequence.toString()} Hz ',
+                                                    style: const TextStyle(
+                                                        fontFamily: 'Comfortaa',
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  width: 170,
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 10, left: 10),
+                                                  // width: double.infinity,
+                                                  child: Text(
+                                                    'vitesse : ${config.vitesse.toString()} Tours/Min ',
+                                                    style: const TextStyle(
+                                                        fontFamily: 'Comfortaa',
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  //width: 180,
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 10, left: 10),
+                                                  //width: double.infinity,
+                                                  child: Text(
+                                                    'Nombre de pole : 0${((pole).round() * 2).toString()}  ',
+                                                    style: const TextStyle(
+                                                        fontFamily: 'Comfortaa',
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              width: 200,
-                                              padding: const EdgeInsets.only(
-                                                  left: 10),
-                                              // width: double.infinity,
-                                              child: Text(
-                                                'tension : ${config.tension.toString()} V',
-                                                style: const TextStyle(
-                                                    fontFamily: 'Comfortaa',
-                                                    fontSize: 13),
-                                              ),
-                                            ),
-                                            Container(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10),
-                                              // width: double.infinity,
-                                              child: Text(
-                                                'fréquence : ${config.frequence.toString()} Hz ',
-                                                style: const TextStyle(
-                                                    fontFamily: 'Comfortaa',
-                                                    fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              width: 200,
-                                              padding: const EdgeInsets.only(
-                                                  top: 10, left: 10),
-                                              // width: double.infinity,
-                                              child: Text(
-                                                'vitesse : ${config.vitesse.toString()} Tours/Min ',
-                                                style: const TextStyle(
-                                                    fontFamily: 'Comfortaa',
-                                                    fontSize: 13),
-                                              ),
-                                            ),
-                                            Container(
-                                              //width: 180,
-                                              padding: const EdgeInsets.only(
-                                                  top: 10, left: 10),
-                                              //width: double.infinity,
-                                              child: Text(
-                                                'Nombre de pole : 0${pole.round().toString()}  ',
-                                                style: const TextStyle(
-                                                    fontFamily: 'Comfortaa',
-                                                    fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                      ),
                                     ),
                                   ),
-                                ),
+                                ],
                               );
                             });
                       },
@@ -386,7 +423,21 @@ class _HomeState extends State<Home> {
                                           int.parse(vitesse!));
                                       addNewConfig(name!, newConfig);
                                       _formKey.currentState!.reset();
+
                                       setState(() {});
+                                      showToast(
+                                        'Configuration ajoutée',
+                                        context: context,
+                                        animation: StyledToastAnimation.scale,
+                                        reverseAnimation:
+                                            StyledToastAnimation.fade,
+                                        position: StyledToastPosition.bottom,
+                                        animDuration: Duration(seconds: 1),
+                                        duration: Duration(seconds: 2),
+                                        curve: Curves.easeOutExpo,
+                                        reverseCurve: Curves.linear,
+                                      );
+                                      Navigator.pop(context, false);
                                     }
                                   },
                                   child: const Text("Sauvegarder"),

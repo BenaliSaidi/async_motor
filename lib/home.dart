@@ -309,6 +309,7 @@ class _HomeState extends State<Home> {
                                     color: Colors.black,
                                   ),
                                   decoration: InputDecoration(
+                                    suffixText: "Volt",
                                     isDense: true,
                                     filled: true,
                                     fillColor: Colors.white10,
@@ -344,6 +345,8 @@ class _HomeState extends State<Home> {
                                     color: Colors.black,
                                   ),
                                   decoration: InputDecoration(
+                                    suffixStyle: TextStyle(fontSize: 11),
+                                    suffixText: "Hz",
                                     isDense: true,
                                     filled: true,
                                     fillColor: Colors.white10,
@@ -379,6 +382,8 @@ class _HomeState extends State<Home> {
                                     color: Colors.black,
                                   ),
                                   decoration: InputDecoration(
+                                    suffixText: "Tr/min",
+                                    suffixStyle: TextStyle(fontSize: 11),
                                     isDense: true,
                                     filled: true,
                                     fillColor: Colors.white10,

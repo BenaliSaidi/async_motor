@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.async_motor">
    <application
-        android:label="async_motor"
+        android:label="Async Motor"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

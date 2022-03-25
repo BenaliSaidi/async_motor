@@ -787,6 +787,9 @@ class _CommandeState extends State<Commande> {
                                             color: Colors.black,
                                           ),
                                           decoration: InputDecoration(
+                                            suffixStyle:
+                                                TextStyle(fontSize: 11),
+                                            suffixText: "Tr/Min",
                                             isDense: true,
                                             filled: true,
                                             fillColor: Colors.white10,

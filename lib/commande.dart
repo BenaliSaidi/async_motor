@@ -173,9 +173,10 @@ class _CommandeState extends State<Commande> {
     int tension = configMotor.tension;
     int frequence = configMotor.frequence;
     int vitesse = configMotor.vitesse;
+    String? glissement;
     double pole = frequence * 60 / vitesse;
     double minVitesse = vitesse / 2;
-    double maxVitesse = (vitesse * 0.05) + vitesse;
+    double maxVitesse = (vitesse * 0.10) + vitesse;
     double minFrequence = frequence / 2;
     double maxFrequence = (frequence * 0.05) + frequence;
 
@@ -347,7 +348,7 @@ class _CommandeState extends State<Commande> {
                                   'Configuration : ',
                                   style: TextStyle(
                                       fontSize: 13,
-                                      fontFamily: 'Montserrat',
+                                      fontFamily: 'Nunito',
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -388,7 +389,7 @@ class _CommandeState extends State<Commande> {
                                 ),
                                 SizedBox(
                                   child: Text(
-                                    'Nombre de pole : 0${(pole.toInt() * 2).toString()}  ',
+                                    'Paire de Pole : 0${(pole.toInt()).toString()}  ',
                                     style: const TextStyle(
                                         fontFamily: 'Comfortaa', fontSize: 13),
                                   ),
@@ -402,49 +403,49 @@ class _CommandeState extends State<Commande> {
                         ),
                       ),
                     ),
+                    // const SizedBox(
+                    //   height: 15,
+                    // ),
+                    // Container(
+                    //   padding: const EdgeInsets.only(left: 20, right: 20),
+                    //   child: Card(
+                    //     // color: const Color(0xffB1D0E0),
+                    //     color: Colors.blue[50],
+                    //     child: Column(
+                    //       children: [
+                    //         Container(
+                    //           width: double.infinity,
+                    //           padding: const EdgeInsets.only(top: 10, left: 10),
+                    //           child: const Text(
+                    //             'Note : ',
+                    //             style: TextStyle(
+                    //                 fontSize: 13,
+                    //                 fontFamily: 'Montserrat',
+                    //                 fontWeight: FontWeight.bold),
+                    //           ),
+                    //         ),
+                    //         Container(
+                    //           width: double.infinity,
+                    //           padding:
+                    //               const EdgeInsets.only(left: 10, right: 10),
+                    //           child: Text(
+                    //             'Pour assurer un bon fonctionnement de ce moteur il faut respecter la plage de la vitesse conseillé (${minVitesse.round()} - ${maxVitesse.round()}) Tours/Min qui correspondent à (${minFrequence.round()} - ${maxFrequence.round()}) Hz afin d\'eviter le phénomene de défluxage.  ',
+                    //             style: const TextStyle(
+                    //               height: 2,
+                    //               fontSize: 13,
+                    //               fontFamily: 'Comfortaa',
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         const SizedBox(
+                    //           height: 10,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(
                       height: 15,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Card(
-                        // color: const Color(0xffB1D0E0),
-                        color: Colors.blue[50],
-                        child: Column(
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.only(top: 10, left: 10),
-                              child: const Text(
-                                'Note : ',
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 10),
-                              child: Text(
-                                'Pour assurer un bon fonctionnement de ce moteur il faut respecter la plage de la vitesse conseillé (${minVitesse.round()} - ${maxVitesse.round()}) Tours/Min qui correspondent à (${minFrequence.round()} - ${maxFrequence.round()}) Hz afin d\'eviter le phénomene de défluxage.  ',
-                                style: const TextStyle(
-                                  height: 2,
-                                  fontSize: 13,
-                                  fontFamily: 'Comfortaa',
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30,
                     ),
                     Container(
                       child: (checkCmd(myValue!))
@@ -465,7 +466,7 @@ class _CommandeState extends State<Commande> {
                                             'Ma commande : ',
                                             style: TextStyle(
                                                 fontSize: 13,
-                                                fontFamily: 'Montserrat',
+                                                fontFamily: 'Nunito',
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -476,7 +477,7 @@ class _CommandeState extends State<Commande> {
                                           child: Column(
                                             children: [
                                               Text(
-                                                'Votre vitesse desirée était ${commandMotor.vitesse} Tr/Min , sachant que mon cher ami ESP_32 fonctionne avec une fréquence MLI de 16000 Hz donc les valeurs envoyées sont les suivantes : ',
+                                                'Votre vitesse desirée était ${commandMotor.vitesse} Tr/Min , sachant que ESP_32 fonctionne avec une fréquence MLI de 16000 Hz donc les valeurs envoyées sont les suivantes : ',
                                                 style: TextStyle(
                                                   height: 2,
                                                   fontSize: 13,
@@ -496,7 +497,7 @@ class _CommandeState extends State<Commande> {
                                                         'Fréquence : ',
                                                         style: TextStyle(
                                                             height: 2,
-                                                            fontSize: 13,
+                                                            fontSize: 12,
                                                             fontFamily:
                                                                 'Comfortaa',
                                                             fontWeight:
@@ -507,7 +508,7 @@ class _CommandeState extends State<Commande> {
                                                     '${(commandMotor.frequence).toString()} Hz',
                                                     style: TextStyle(
                                                       height: 2,
-                                                      fontSize: 13,
+                                                      fontSize: 12,
                                                       fontFamily: 'Comfortaa',
                                                     ),
                                                   ),
@@ -526,7 +527,7 @@ class _CommandeState extends State<Commande> {
                                                         'Tension max : ',
                                                         style: TextStyle(
                                                             height: 2,
-                                                            fontSize: 13,
+                                                            fontSize: 12,
                                                             fontFamily:
                                                                 'Comfortaa',
                                                             fontWeight:
@@ -537,7 +538,7 @@ class _CommandeState extends State<Commande> {
                                                     '${commandMotor.tensionMax} V',
                                                     style: TextStyle(
                                                       height: 2,
-                                                      fontSize: 13,
+                                                      fontSize: 12,
                                                       fontFamily: 'Comfortaa',
                                                     ),
                                                   ),
@@ -556,7 +557,7 @@ class _CommandeState extends State<Commande> {
                                                         'temps de cycle : ',
                                                         style: TextStyle(
                                                             height: 2,
-                                                            fontSize: 13,
+                                                            fontSize: 12,
                                                             fontFamily:
                                                                 'Comfortaa',
                                                             fontWeight:
@@ -567,7 +568,7 @@ class _CommandeState extends State<Commande> {
                                                     '${commandMotor.tmpDeCycle} ms',
                                                     style: TextStyle(
                                                       height: 2,
-                                                      fontSize: 13,
+                                                      fontSize: 12,
                                                       fontFamily: 'Comfortaa',
                                                     ),
                                                   ),
@@ -586,7 +587,7 @@ class _CommandeState extends State<Commande> {
                                                         'nombre de commande : ',
                                                         style: TextStyle(
                                                             height: 2,
-                                                            fontSize: 13,
+                                                            fontSize: 12,
                                                             fontFamily:
                                                                 'Comfortaa',
                                                             fontWeight:
@@ -597,7 +598,7 @@ class _CommandeState extends State<Commande> {
                                                     '${commandMotor.nbrDeCommande} Cmd/Cycle',
                                                     style: TextStyle(
                                                       height: 2,
-                                                      fontSize: 13,
+                                                      fontSize: 12,
                                                       fontFamily: 'Comfortaa',
                                                     ),
                                                   ),
@@ -762,196 +763,264 @@ class _CommandeState extends State<Commande> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           content: Container(
-                            height: 180,
+                            height: 220,
                             padding: EdgeInsets.all(10),
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                    // height: 10,
-                                    ),
-                                const Text(
-                                  'Veuillez Inserez la vitesse SVP',
-                                  style: TextStyle(fontSize: 13),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Form(
-                                    key: _formKey,
-                                    child: Column(
-                                      children: [
-                                        TextFormField(
-                                          keyboardType: TextInputType.number,
-                                          style: const TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.black,
-                                          ),
-                                          decoration: InputDecoration(
-                                            suffixStyle:
-                                                TextStyle(fontSize: 11),
-                                            suffixText: "Tr/Min",
-                                            isDense: true,
-                                            filled: true,
-                                            fillColor: Colors.white10,
-                                            labelText: 'Vitesse en Tours/Min',
-                                            labelStyle: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 11),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              borderSide: const BorderSide(
-                                                width: 2,
-                                                color: Color(0xff2980B9),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                      // height: 10,
+                                      ),
+                                  const Text(
+                                    'Veuillez Inserez la vitesse SVP',
+                                    style: TextStyle(fontSize: 13),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Form(
+                                      key: _formKey,
+                                      child: Column(
+                                        children: [
+                                          TextFormField(
+                                            keyboardType: TextInputType.number,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black,
+                                            ),
+                                            decoration: InputDecoration(
+                                              suffixStyle:
+                                                  TextStyle(fontSize: 11),
+                                              suffixText: "Tr/Min",
+                                              isDense: true,
+                                              filled: true,
+                                              fillColor: Colors.white10,
+                                              labelText: 'Vitesse en Tours/Min',
+                                              labelStyle: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 11),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                borderSide: const BorderSide(
+                                                  width: 2,
+                                                  color: Color(0xff2980B9),
+                                                ),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
                                               ),
                                             ),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
+                                            onSaved: (value) => speedy = value!,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return 'Veuillez inserer une vitesse valide SVP';
+                                              }
+                                              if (int.parse(value) >
+                                                  maxVitesse) {
+                                                return 'Vitesse max ${maxVitesse.toInt()}';
+                                              }
+
+                                              if (int.parse(value) <
+                                                  minVitesse) {
+                                                return 'Votre vitesse est trop petite';
+                                              }
+
+                                              return null;
+                                            },
                                           ),
-                                          onSaved: (value) => speedy = value!,
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Veuillez inserer une vitesse valide SVP';
-                                            }
-                                            if (int.parse(value) > maxVitesse) {
-                                              return 'Vous risquez de griller le moteur';
-                                            }
-
-                                            if (int.parse(value) < minVitesse) {
-                                              return 'Votre vitesse est trop petite';
-                                            }
-
-                                            return null;
-                                          },
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        // ignore: prefer_const_constructors
-                                        SizedBox(
-                                            width: double.infinity,
-                                            child: ElevatedButton(
-                                              style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty
-                                                        .all<Color>(const Color(
-                                                            0xffffab00)),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          TextFormField(
+                                            keyboardType: TextInputType.number,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black,
+                                            ),
+                                            decoration: InputDecoration(
+                                              suffixStyle:
+                                                  TextStyle(fontSize: 11),
+                                              suffixText: "%",
+                                              isDense: true,
+                                              filled: true,
+                                              fillColor: Colors.white10,
+                                              labelText: 'Glissement',
+                                              labelStyle: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 11),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                borderSide: const BorderSide(
+                                                  width: 2,
+                                                  color: Color(0xff2980B9),
+                                                ),
                                               ),
-                                              onPressed: () {
-                                                if (_formKey.currentState!
-                                                    .validate()) {
-                                                  _formKey.currentState!.save();
-                                                  String Duty = duty(
-                                                      int.parse(speedy!),
-                                                      vitesse,
-                                                      frequence,
-                                                      tension);
-
-                                                  sendcmd(Duty);
-                                                  dutyGraph =
-                                                      getdutyForGraph(Duty);
-
-                                                  if (message ==
-                                                      "esp32 : executed") {
-                                                    print(
-                                                        'commande executer avec succees');
-                                                  }
-                                                  int nbrDeCommande =
-                                                      (Duty.length / 4).round();
-                                                  double fre = double.parse(
-                                                      (16000 / nbrDeCommande)
-                                                          .toStringAsFixed(2));
-
-                                                  double tmpDeCycle =
-                                                      double.parse((1000 / fre)
-                                                          .toStringAsFixed(2));
-
-                                                  double tensionMax =
-                                                      double.parse((int.parse(
-                                                                  speedy!) /
-                                                              vitesse *
-                                                              tension)
-                                                          .toStringAsFixed(2));
-
-                                                  if (tensionMax > tension) {
-                                                    tensionMax =
-                                                        tension.toDouble();
-                                                  }
-
-                                                  final Cmd = Comnd(
-                                                      fre,
-                                                      tensionMax,
-                                                      tmpDeCycle,
-                                                      int.parse(speedy!),
-                                                      nbrDeCommande);
-                                                  addToCmd(myValue!, Cmd);
-                                                  _formKey.currentState!
-                                                      .reset();
-
-                                                  setState(() {});
-                                                  Navigator.pop(context, false);
-                                                }
-                                                if (status == true) {
-                                                  showToast('Commande envoyée',
-                                                      context: context,
-                                                      animation:
-                                                          StyledToastAnimation
-                                                              .scale,
-                                                      reverseAnimation:
-                                                          StyledToastAnimation
-                                                              .fade,
-                                                      position:
-                                                          StyledToastPosition
-                                                              .bottom,
-                                                      animDuration:
-                                                          Duration(seconds: 1),
-                                                      duration:
-                                                          Duration(seconds: 2),
-                                                      curve: Curves.easeOutExpo,
-                                                      reverseCurve:
-                                                          Curves.linear,
-                                                      backgroundColor:
-                                                          Colors.black87);
-                                                }
-                                                if (status == false) {
-                                                  showToast(
-                                                      'Vous êtes en mode Offline',
-                                                      context: context,
-                                                      animation:
-                                                          StyledToastAnimation
-                                                              .scale,
-                                                      reverseAnimation:
-                                                          StyledToastAnimation
-                                                              .fade,
-                                                      position:
-                                                          StyledToastPosition
-                                                              .bottom,
-                                                      animDuration:
-                                                          Duration(seconds: 1),
-                                                      duration:
-                                                          Duration(seconds: 2),
-                                                      curve: Curves.easeOutExpo,
-                                                      reverseCurve:
-                                                          Curves.linear,
-                                                      backgroundColor:
-                                                          Colors.black);
-                                                }
-                                              },
-                                              child: const Text(
-                                                'Envoyer',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 13,
-                                                    fontFamily: 'Comfortaa',
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
                                               ),
-                                            ))
-                                      ],
-                                    ))
-                              ],
+                                            ),
+                                            onSaved: (value) =>
+                                                glissement = value!,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return 'Veuillez remplir ce champ SVP';
+                                              }
+                                              if (double.parse(value) > 10) {
+                                                return 'le glissement doit être inferieure a 11';
+                                              }
+
+                                              if (double.parse(value) < 0) {
+                                                return 'le glissement ne doit pas être negatif';
+                                              }
+
+                                              return null;
+                                            },
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          // ignore: prefer_const_constructors
+                                          SizedBox(
+                                              width: double.infinity,
+                                              child: ElevatedButton(
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all<
+                                                              Color>(
+                                                          const Color(
+                                                              0xffffab00)),
+                                                ),
+                                                onPressed: () {
+                                                  if (_formKey.currentState!
+                                                      .validate()) {
+                                                    _formKey.currentState!
+                                                        .save();
+
+                                                    String Duty = duty(
+                                                        int.parse(speedy!),
+                                                        vitesse,
+                                                        frequence,
+                                                        tension,
+                                                        double.parse(
+                                                            glissement!));
+
+                                                    sendcmd(Duty);
+                                                    dutyGraph =
+                                                        getdutyForGraph(Duty);
+
+                                                    if (message ==
+                                                        "esp32 : executed") {
+                                                      print(
+                                                          'commande executer avec succees');
+                                                    }
+                                                    int nbrDeCommande =
+                                                        (Duty.length / 4)
+                                                            .round();
+                                                    double fre = double.parse(
+                                                        (16000 / nbrDeCommande)
+                                                            .toStringAsFixed(
+                                                                2));
+
+                                                    double tmpDeCycle =
+                                                        double.parse((1000 /
+                                                                fre)
+                                                            .toStringAsFixed(
+                                                                2));
+
+                                                    double tensionMax =
+                                                        double.parse((int.parse(
+                                                                    speedy!) /
+                                                                vitesse *
+                                                                tension)
+                                                            .toStringAsFixed(
+                                                                2));
+
+                                                    if (tensionMax > tension) {
+                                                      tensionMax =
+                                                          tension.toDouble();
+                                                    }
+
+                                                    final Cmd = Comnd(
+                                                        fre,
+                                                        tensionMax,
+                                                        tmpDeCycle,
+                                                        int.parse(speedy!),
+                                                        nbrDeCommande);
+                                                    addToCmd(myValue!, Cmd);
+                                                    _formKey.currentState!
+                                                        .reset();
+
+                                                    setState(() {});
+                                                    Navigator.pop(
+                                                        context, false);
+                                                  }
+                                                  if (status == true) {
+                                                    showToast(
+                                                        'Commande envoyée',
+                                                        context: context,
+                                                        animation:
+                                                            StyledToastAnimation
+                                                                .scale,
+                                                        reverseAnimation:
+                                                            StyledToastAnimation
+                                                                .fade,
+                                                        position:
+                                                            StyledToastPosition
+                                                                .bottom,
+                                                        animDuration: Duration(
+                                                            seconds: 1),
+                                                        duration: Duration(
+                                                            seconds: 2),
+                                                        curve:
+                                                            Curves.easeOutExpo,
+                                                        reverseCurve:
+                                                            Curves.linear,
+                                                        backgroundColor:
+                                                            Colors.black87);
+                                                  }
+                                                  if (status == false) {
+                                                    showToast(
+                                                        'Vous êtes en mode Offline',
+                                                        context: context,
+                                                        animation:
+                                                            StyledToastAnimation
+                                                                .scale,
+                                                        reverseAnimation:
+                                                            StyledToastAnimation
+                                                                .fade,
+                                                        position:
+                                                            StyledToastPosition
+                                                                .bottom,
+                                                        animDuration: Duration(
+                                                            seconds: 1),
+                                                        duration: Duration(
+                                                            seconds: 2),
+                                                        curve:
+                                                            Curves.easeOutExpo,
+                                                        reverseCurve:
+                                                            Curves.linear,
+                                                        backgroundColor:
+                                                            Colors.black);
+                                                  }
+                                                },
+                                                child: const Text(
+                                                  'Envoyer',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 13,
+                                                      fontFamily: 'Comfortaa',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ))
+                                        ],
+                                      ))
+                                ],
+                              ),
                             ),
                           ),
                         );

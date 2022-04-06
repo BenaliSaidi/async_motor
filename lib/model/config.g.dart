@@ -21,13 +21,15 @@ class ConfigAdapter extends TypeAdapter<Config> {
       fields[2] as int,
       fields[3] as int,
       fields[4] as int,
+      fields[5] as int,
+      fields[6] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Config obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
@@ -35,7 +37,11 @@ class ConfigAdapter extends TypeAdapter<Config> {
       ..writeByte(3)
       ..write(obj.frequence)
       ..writeByte(4)
-      ..write(obj.vitesse);
+      ..write(obj.vitesse)
+      ..writeByte(5)
+      ..write(obj.pole)
+      ..writeByte(6)
+      ..write(obj.couplage);
   }
 
   @override

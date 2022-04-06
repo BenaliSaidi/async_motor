@@ -105,39 +105,17 @@ flutter:
     fonts:
      - asset: fonts/Amarante-Regular.ttf
 
-
-  - family: Recursive
-    fonts:
-     - asset: fonts/Recursive-Bold.ttf
-     - asset: fonts/Recursive-Light.ttf
-     - asset: fonts/Recursive-Regular.ttf
-     - asset: fonts/Recursive-Medium.ttf
-
-  - family: Montserrat
-    fonts:
-     - asset: fonts/Montserrat-Bold.ttf
-     - asset: fonts/Montserrat-Light.ttf
-     - asset: fonts/Montserrat-Regular.ttf
-     - asset: fonts/Montserrat-Medium.ttf
-
-  - family: Rubik
-    fonts:
-     - asset: fonts/Rubik-Bold.ttf
-     - asset: fonts/Rubik-Light.ttf
-     - asset: fonts/Rubik-Regular.ttf
-     - asset: fonts/Rubik-Medium.ttf
-     
-  - family: Abel
-    fonts:
-     - asset: fonts/Abel-Regular.ttf
-
-  - family: Satisfy
-    fonts:
-     - asset: fonts/Satisfy-Regular.ttf
-
   - family: Righteous
     fonts:
      - asset: fonts/Righteous-Regular.ttf
+
+  - family: Nunito
+    fonts:
+     - asset: fonts/Nunito-Light.ttf
+     - asset: fonts/Nunito-Medium.ttf
+     - asset: fonts/Nunito-Regular.ttf
+     - asset: fonts/Nunito-Bold.ttf
+    
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

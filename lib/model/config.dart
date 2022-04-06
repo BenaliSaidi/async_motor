@@ -15,5 +15,12 @@ class Config {
   @HiveField(4)
   final int vitesse;
 
-  Config(this.name, this.tension, this.frequence, this.vitesse);
+  @HiveField(5)
+  final int pole;
+
+  @HiveField(6)
+  final String couplage;
+
+  Config(this.name, this.tension, this.frequence, this.vitesse, this.pole,
+      this.couplage);
 }

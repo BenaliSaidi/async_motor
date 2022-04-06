@@ -14,14 +14,26 @@ void printLongString(String text) {
       .forEach((RegExpMatch match) => print(match.group(0)));
 }
 
-String duty(int speed, int vitesse, int frequence, int tension) {
-  var coif = speed / vitesse;
-  var Desired_tension = tension * coif;
+String duty(
+    int speed, int vitesse, int frequence, int tension, double glissemnt) {
+  var Desired_tension;
+  var mySpeed = speed + (speed * (glissemnt * 0.01));
+
+  var coif = mySpeed / vitesse;
+
+  if (coif >= 1) {
+    Desired_tension = tension;
+  }
+
+  if (coif < 1) {
+    Desired_tension = tension * coif;
+  }
+
   var Desired_frequence = frequence * coif;
 
   List<String> List_PDC_1 = [];
-  List<int> List_PDC_2 = [];
-  List<int> List_PDC_3 = [];
+  // List<int> List_PDC_2 = [];
+  // List<int> List_PDC_3 = [];
 
   String pdc;
   String transPdc = "";
@@ -89,5 +101,3 @@ String duty(int speed, int vitesse, int frequence, int tension) {
 
   return pdc;
 }
-
-drawGraph() {}
